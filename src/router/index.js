@@ -12,7 +12,7 @@ let routes = [{
             path: '/home',
             name: 'home',
             component: () =>
-                import('../views/home/index.vue'),
+                import('../views/indexPages/home/index.vue'),
         },
         {
             path: '/login',

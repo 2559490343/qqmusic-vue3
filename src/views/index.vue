@@ -1,6 +1,9 @@
 <template>
   <div class="m-index">
     <CommonHeader />
+    <CommonSearch>
+      <!-- <button>hhh</button> -->
+    </CommonSearch>
     <main>
       <router-view></router-view>
     </main>
@@ -9,9 +12,14 @@
   </div>
 </template>
 <script>
-import { CommonHeader, CommonFooter, CommonPlayer } from "/@/components";
+import {
+  CommonHeader,
+  CommonFooter,
+  CommonPlayer,
+  CommonSearch,
+} from "/@/components";
 export default {
-  components: { CommonHeader, CommonFooter, CommonPlayer },
+  components: { CommonHeader, CommonFooter, CommonPlayer, CommonSearch },
 };
 </script>
 <style lang="less">
