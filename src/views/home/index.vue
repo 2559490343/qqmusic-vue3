@@ -8,5 +8,6 @@ export default {};
 <style lang="less">
 .m-home {
   height: 1000px;
+  padding-left: 15px;
 }
 </style>

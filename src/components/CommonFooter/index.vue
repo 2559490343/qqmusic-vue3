@@ -59,7 +59,7 @@ export default {
 <style lang="less">
 .m-common-footer {
   height: 50px;
-  padding: 10px 40px;
+  padding: 10px 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
