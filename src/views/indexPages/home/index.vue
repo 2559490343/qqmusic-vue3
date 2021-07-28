@@ -34,13 +34,82 @@
         </ul>
       </div>
     </div>
+    <div class="everyoneSing">
+      <h1 class="common-title">
+        大家都在听
+        <div v-if="!playing" @click="playing = true">
+          <van-icon name="play" /><span>播放</span>
+        </div>
+        <div v-else @click="playing = false">
+          <van-icon name="pause" /><span>暂停</span>
+        </div>
+      </h1>
+      <div id="songList">
+        <div class="list-block" v-for="(item, index) in 3" :key="item">
+          <div
+            class="song-item"
+            v-for="(it, idx) in everyoneSingList[index]"
+            :key="idx"
+          >
+            <div class="song-img">
+              <img :src="it.img" alt="" />
+            </div>
+            <div class="song-info">
+              <div class="song-title">{{ it.title }}</div>
+              <div class="song-singer">{{ it.singer }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { reactive } from "vue";
+import { reactive, ref, onMounted } from "vue";
 export default {
-  setup() {
+  setup(props, content) {
+    onMounted(() => {
+      // 大家都在听模块 左右拖动逻辑
+      let index = 1;
+      songList.ontouchstart = function (startEvent) {
+        const startTouch = startEvent.changedTouches[0] || {};
+        const startX = startTouch.clientX;
+        const style = songList.style || {};
+        let movedX = 0;
+        const left = Number(style.left.replace("px", ""));
+        songList.ontouchmove = function (moveEvent) {
+          const moveTouch = moveEvent.changedTouches[0] || {};
+          const moveingX = moveTouch.clientX;
+          movedX = moveingX - startX;
+          style.transition = "none";
+          style.left = left + movedX + "px";
+        };
+        songList.ontouchend = function (endEvent) {
+          // const endTouch = endEvent.changedTouches[0] || {};
+          // const endX = endTouch.clientX;
+          style.transition = "ease left 0.4s";
+          const lastLeft = left;
+          if (movedX > 0) {
+            if (index > 1) {
+              index--;
+              style.left = left + 340 + "px";
+            } else {
+              style.left = lastLeft + "px";
+            }
+          } else {
+            if (index < 3) {
+              index++;
+              style.left = left - 340 + "px";
+            } else {
+              style.left = lastLeft + "px";
+            }
+          }
+          // console.log(left);
+        };
+      };
+    });
+
     const setupObj = {};
 
     //  今日推荐模块
@@ -96,7 +165,55 @@ export default {
     });
     setupObj.songSheetList = songSheetList;
 
+    // 大家都在听模块
+    let playing = ref(false);
+    setupObj.playing = playing;
+    let everyoneSingList = reactive([
+      [
+        { img: "", title: "PROMISE", singer: "TWICE (트와이스)" },
+        {
+          img: "",
+          title: "无双的王者王者荣耀年度电竞主题曲 暨 2021世界冠军杯主题曲",
+          singer: "G.E.M. 邓紫棋/王者荣耀",
+        },
+        {
+          img: "",
+          title: "HADASHi NO STEP《约定的灰姑娘》日剧主题曲",
+          singer: "LiSA (织部里沙)",
+        },
+      ],
+      [
+        { img: "", title: "往昔《玉楼春》影视剧主题曲", singer: "陆虎" },
+        { img: "", title: "我喜欢你", singer: "时代少年团" },
+        { img: "", title: "How You Like That (JP Ver.)", singer: "BLACKPINK" },
+      ],
+      [
+        {
+          img: "",
+          title: "相拥各自不完整《残次品·放逐星空》动画片头曲",
+          singer: "张韶涵",
+        },
+        { img: "", title: "清福", singer: "李宇春" },
+        {
+          img: "",
+          title: "陷入爱情《你是我的荣耀》电视剧插曲",
+          singer: "硬糖少女303希林娜依·高INTO1-米卡",
+        },
+      ],
+    ]);
+    everyoneSingList.forEach((item, index) => {
+      item.forEach((it, idx) => {
+        it.img = `/@img/everyone${index * 3 + idx + 1}.jpg`;
+      });
+    });
+    setupObj.everyoneSingList = everyoneSingList;
+
     return setupObj;
+  },
+  methods: {
+    handleTest() {
+      console.log(111);
+    },
   },
 };
 </script>
@@ -157,6 +274,64 @@ export default {
             }
             span {
               font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .everyoneSing {
+    h1 {
+      display: flex;
+      align-items: center;
+      div {
+        display: inline-block;
+        font-size: 12px;
+        background-color: #e2f6f0;
+        padding: 0px 8px;
+        border-radius: 10px;
+        line-height: 25px;
+        margin-left: 15px;
+        i {
+          color: #22d59c;
+          margin-right: 5px;
+          font-size: 14px;
+        }
+      }
+    }
+    #songList {
+      display: flex;
+      position: relative;
+      left: 0;
+      .list-block {
+        width: 95%;
+        .song-item {
+          display: flex;
+          .song-img {
+            img {
+              width: 70px;
+              height: 70px;
+              border-radius: 8px;
+            }
+          }
+          .song-info {
+            padding: 12px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: calc(100% - 100px);
+            .song-title {
+              font-size: 20px;
+            }
+            .song-singer {
+              font-size: 14px;
+            }
+            .song-title,
+            .song-singer {
+              width: calc(100% - 20px);
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
             }
           }
         }

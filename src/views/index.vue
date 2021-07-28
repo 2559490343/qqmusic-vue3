@@ -1,9 +1,7 @@
 <template>
   <div class="m-index">
     <CommonHeader />
-    <CommonSearch>
-      <!-- <button>hhh</button> -->
-    </CommonSearch>
+    <CommonSearch> </CommonSearch>
     <main>
       <router-view></router-view>
     </main>

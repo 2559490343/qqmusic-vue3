@@ -9,5 +9,6 @@ export default {
     // 目录别名
     alias: {
         '/@/': pathResolve('src'),
+        '/@img/': pathResolve('src/assets/img'),
     },
 }

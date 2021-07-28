@@ -7,7 +7,7 @@
         <span class="placeholder-normal">为你推荐</span>
       </span>
     </div>
-    <slot></slot>
+    <slot name="btnSlot"></slot>
   </div>
 </template>
 <script>
