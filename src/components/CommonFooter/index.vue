@@ -4,7 +4,7 @@
       class="btn-item"
       v-for="(btn, index) in btnList"
       :key="btn.label"
-      @click="activeIndex = index"
+      @click="handleBtnClick(index)"
       :class="activeIndex === index ? 'active' : ''"
     >
       <van-icon :name="activeIndex === index ? btn.icon2 : btn.icon" />
@@ -14,6 +14,7 @@
 </template>
 <script>
 import { reactive, ref } from "vue";
+import store from "/@/store";
 export default {
   setup() {
     const setupObj = {};
@@ -53,6 +54,12 @@ export default {
     setupObj.activeIndex = activeIndex;
 
     return setupObj;
+  },
+  methods: {
+    handleBtnClick(index) {
+      this.activeIndex = index;
+      store.dispatch("setActiveMenu", index);
+    },
   },
 };
 </script>

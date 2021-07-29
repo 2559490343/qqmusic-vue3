@@ -2,10 +2,10 @@
   <header class="m-common-header">
     <ul>
       <li
-        v-for="(item, index) in optionsList[0]"
+        v-for="(item, index) in optionsList[shareStore.activeMenu]"
         :class="activeIndex === index ? 'active' : ''"
         :key="item.value"
-        @click="handleClickList(index)"
+        @click="handleClickList(item, index)"
       >
         {{ item.label }}
       </li>
@@ -15,11 +15,11 @@
 
 <script>
 import { reactive, ref } from "vue";
+import store from "/@/store";
 export default {
   name: "commonHeader",
   setup() {
     const setupObj = {};
-
     // 头部选项列表list
     const optionsList = reactive([
       [
@@ -46,6 +46,7 @@ export default {
           value: "podcast",
         },
       ],
+      [],
       [
         {
           label: "广场",
@@ -67,13 +68,18 @@ export default {
 
     //选项选中active
     let activeIndex = ref(0);
+    // let color = ref("red");
+    // setupObj.color = color;
     setupObj.activeIndex = activeIndex;
 
+    setupObj.shareStore = store;
     return setupObj;
   },
   methods: {
-    handleClickList(index) {
+    handleClickList(item, index) {
       this.activeIndex = index;
+      this.color = "black";
+      store.dispatch("setActiveTabs", item.value);
     },
   },
 };
@@ -95,13 +101,14 @@ export default {
       font-weight: 600;
       position: relative;
     }
-    li.active::after{
-      content: '';
+    li.active::after {
+      content: "";
       display: block;
       position: absolute;
       width: 100%;
       height: 5px;
       background-color: #22d59c;
+      // background-color: v-bind(color);
       border-radius: 20%;
       bottom: -6px;
     }

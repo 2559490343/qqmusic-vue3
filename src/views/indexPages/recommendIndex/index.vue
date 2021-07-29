@@ -1,5 +1,8 @@
 <template>
-  <div class="m-home">
+  <div
+    class="m-home"
+    v-show="shareStore.activeTabs == name"
+  >
     <div class="todayRecommend">
       <h1 class="common-title">Hi 新生 今日为你推荐</h1>
       <ul class="todayRecList">
@@ -66,8 +69,16 @@
 </template>
 
 <script>
-import { reactive, ref, onMounted } from "vue";
+import { reactive, ref, onMounted, inject } from "vue";
+import store from "/@/store";
 export default {
+  components: {},
+  props: {
+    name: {
+      type: String,
+      default: "recommendIndex",
+    },
+  },
   setup(props, content) {
     onMounted(() => {
       // 大家都在听模块 左右拖动逻辑
@@ -86,9 +97,13 @@ export default {
           style.left = left + movedX + "px";
         };
         songList.ontouchend = function (endEvent) {
-          // const endTouch = endEvent.changedTouches[0] || {};
-          // const endX = endTouch.clientX;
+          const endTouch = endEvent.changedTouches[0] || {};
+          const endX = endTouch.clientX;
           style.transition = "ease left 0.4s";
+          if (endX - startX < 30 && endX - startX > -30) {
+            style.left = left + "px";
+            return;
+          }
           const lastLeft = left;
           if (movedX > 0) {
             if (index > 1) {
@@ -105,12 +120,16 @@ export default {
               style.left = lastLeft + "px";
             }
           }
-          // console.log(left);
         };
       };
     });
-
     const setupObj = {};
+
+    // let activeTabs = ref(store.activeTabs);
+    setupObj.shareStore = store;
+    // // let activeTabs = ref("");
+    // // activeTabs = inject("activeTabs");
+    // setupObj.activeTabs = activeTabs;
 
     //  今日推荐模块
     let todayRecList = reactive([
@@ -207,7 +226,6 @@ export default {
       });
     });
     setupObj.everyoneSingList = everyoneSingList;
-
     return setupObj;
   },
   methods: {
@@ -335,6 +353,9 @@ export default {
             }
           }
         }
+      }
+      .list-block:last-child {
+        width: 100%;
       }
     }
   }

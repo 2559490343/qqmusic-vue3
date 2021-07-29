@@ -1,5 +1,7 @@
 <template>
-  <div v-show="shareStore.activeTabs == name">音乐馆</div>
+  <div v-show="shareStore.activeTabs == name ">
+    live
+  </div>
 </template>
 <script>
 import { ref, inject } from "vue";
@@ -8,15 +10,14 @@ export default {
   props: {
     name: {
       type: String,
-      default: "musicHall",
+      default: "live",
     },
   },
   setup() {
     const setupObj = {};
-
     // let activeTabs = ref("");
     // activeTabs = inject("activeTabs");
-    // let activeTabs =ref(store.activeTabs);
+    // let activeTabs = store.activeTabs;
     // setupObj.activeTabs = activeTabs;
     setupObj.shareStore = store;
     return setupObj;

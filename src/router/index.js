@@ -1,6 +1,4 @@
 import * as VueRouter from 'vue-router'
-// createApp().use(Router)
-// console.log(VueRouter);
 let routes = [{
     path: '/',
     redirect: "/home",
@@ -12,7 +10,7 @@ let routes = [{
             path: '/home',
             name: 'home',
             component: () =>
-                import('../views/indexPages/home/index.vue'),
+                import('../views/indexPages/index.vue'),
         },
         {
             path: '/login',
