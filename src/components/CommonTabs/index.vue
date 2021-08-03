@@ -1,6 +1,6 @@
 <template>
   <div class="m-common-tabs" id="commonTabs">
-      <slot> </slot>
+      <slot></slot>
   </div>
 </template>
 <script>

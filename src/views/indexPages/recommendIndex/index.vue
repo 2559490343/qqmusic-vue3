@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="m-home"
-    v-show="shareStore.activeTabs == name"
-  >
+  <div class="m-home" v-show="shareStore.activeTabs == name">
     <div class="todayRecommend">
       <h1 class="common-title">Hi 新生 今日为你推荐</h1>
       <ul class="todayRecList">

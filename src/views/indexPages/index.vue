@@ -21,5 +21,7 @@ export default {
     MusicHallPage,
   },
   setup(prop, ctx) {},
+  methods: {
+  },
 };
 </script>

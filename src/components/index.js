@@ -3,11 +3,12 @@ import CommonFooter from './CommonFooter/index.vue'
 import CommonPlayer from './CommonPlayer/index.vue'
 import CommonSearch from './CommonSearch/index.vue'
 import CommonTabs from './CommonTabs/index.vue'
-
+import Swiper from './swiper/index.vue'
 export {
     CommonHeader,
     CommonFooter,
     CommonPlayer,
     CommonSearch,
-    CommonTabs
+    CommonTabs,
+    Swiper
 }

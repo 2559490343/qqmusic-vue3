@@ -70,6 +70,7 @@ export default {
     let activeIndex = ref(0);
     // let color = ref("red");
     // setupObj.color = color;
+
     setupObj.activeIndex = activeIndex;
 
     setupObj.shareStore = store;
@@ -78,7 +79,7 @@ export default {
   methods: {
     handleClickList(item, index) {
       this.activeIndex = index;
-      this.color = "black";
+      // this.color = "black";
       store.dispatch("setActiveTabs", item.value);
     },
   },

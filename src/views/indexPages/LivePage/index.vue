@@ -15,10 +15,6 @@ export default {
   },
   setup() {
     const setupObj = {};
-    // let activeTabs = ref("");
-    // activeTabs = inject("activeTabs");
-    // let activeTabs = store.activeTabs;
-    // setupObj.activeTabs = activeTabs;
     setupObj.shareStore = store;
     return setupObj;
   },
